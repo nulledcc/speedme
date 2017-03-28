@@ -1,0 +1,14 @@
+# handles 403 (forbidden) status as 404 (not found)
+ErrorDocument 403 /404
+
+Options -Indexes
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+# Nothing exists for the request so append a trailing / if needed
+#RewriteCond %{REQUEST_URI} !/$
+#RewriteRule ^ %{REQUEST_URI}/ [R=301,L]
+RewriteRule ^(.*)$ index.php/?urlr=$1 [QSA,L]
