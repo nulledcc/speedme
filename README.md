@@ -44,7 +44,7 @@ use speedme\views\view;
 
 class books extends view {
     public function actionBooks(){
-        parent::$page_title = 'Tsovinar Hovannisyan books';
+        parent::$page_title = 'My books';
         parent::render(array('body'=>'books'));
     }
 }
