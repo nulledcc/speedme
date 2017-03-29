@@ -9,6 +9,16 @@ Speed me is a small MVC PHP framework
 
 More documentation will be soon
 
+#####DIR locations#####
+
+Controllers: **api/controllers/**
+
+Views: **api/views**
+
+Models: **api/models**
+
+helpers: **api/helpers**
+
 #####ROUTING#####
 
 http://www.yoursite.com/{actionController}/{method}/{other[array[...]]}
@@ -39,3 +49,5 @@ class books extends view {
     }
 }
 ```
+
+
