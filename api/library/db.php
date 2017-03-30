@@ -1,4 +1,7 @@
-<?php/*speedme framework*Author : Davit G.*contact-email: dxjan@ya.ru*/
+<?php
+/*speedme framework
+*Author : Davit G.
+*contact-email: dxjan@ya.ru*/
 namespace speedme\db{
     use speedme;
     use speedme\configuration;
@@ -110,13 +113,21 @@ namespace speedme\db{
 
         /**
          * @param string $table_name
+         * @param int $method
          * @return bool
          */
-        public static function table_exist($table_name = ''){
+        public static function table_exist($table_name = '',$method = 1){
             self::connect();
             try {
-                if(self::$pdo->query("SELECT 1 FROM {$table_name} LIMIT 1")){
-                    return true;
+                if($method == 1){
+                    $prepare = (is_object(self::$pdo) && method_exists(self::$pdo,'prepare')) ? self::$pdo->prepare("SHOW TABLES LIKE '{$table_name}'") : false;
+                    if($prepare && $prepare->rowCount() > 0){
+                        return true;
+                    }
+                }else if($method == 2){
+                    if(self::$pdo->query("SELECT 1 FROM `{$table_name}` LIMIT 1")){
+                        return true;
+                    }
                 }
 
             }catch (\PDOException $e) {
