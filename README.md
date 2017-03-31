@@ -74,6 +74,6 @@ class books extends view {
 **books.php**
 
 ```html
-{my_test} {{my_double}}
+    <div>{my_test} {{my_double}}</div>
 ```
 
