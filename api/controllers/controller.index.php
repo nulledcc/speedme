@@ -1,11 +1,14 @@
-<?php/*speedme framework*Author : Davit G.*contact-email: dxjan@ya.ru*/
+<?php
+/*speedme framework
+*Author : Davit G.
+*contact-email: dxjan@ya.ru*/
 
 use speedme\views\view;
 
 class index extends view {
 
     public function actionIndex(){
-        parent::$page_title = 'Tsovinar Hovannisyan page';
+        parent::$page_title = 'My website page title';
         parent::render(array('body'=>'index'));
         parent::template(
             '{test}',
