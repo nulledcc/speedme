@@ -97,8 +97,8 @@ namespace speedme {
     class route{
         public static $actions = false;
         public static $language_route = [
-            'категории'=>'categories',
-            'категория'=>'category'
+            'книги'=>'books',
+            'книга'=>'book'
         ];
         /**
          * @param $data
