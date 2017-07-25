@@ -1,4 +1,7 @@
-<?php/*speedme framework*Author : Davit G.*contact-email: dxjan@ya.ru*/
+<?php
+/*speedme framework
+*Author : Davit G.
+*contact-email: dxjan@ya.ru*/
 namespace speedme {
     use speedme\configuration;
     class core
@@ -29,14 +32,18 @@ namespace speedme {
             }
             return $ip_address;
         }
+
         /**
          * @param $debug
          * @param string $header
          * @param bool $die
          * @param array $colors
+         * @param bool $return
+         * @return string
          */
-        public static function debug($debug, $header = "", $die = false, $colors = array('EFECEC', '000000'))
+        public static function debug($debug, $header = "", $die = false, $colors = array('EFECEC', '000000'),$return = false)
         {
+            $message = '';
             if (configuration\debug::$enable) {
                 if(!isset($colors[0])){
                     $colors[0] = '#EFECEC';
@@ -52,10 +59,10 @@ namespace speedme {
                         $colors[1] = "#".$colors[1];
                     }
                 }
-                echo '<div style="background:' . $colors[0] . ';color:' . $colors[1] . ';border:1px solid #333;margin-top:5px;margin-bottom:5px;padding:2px;width:100%;">';
-                echo '<div style="background:#BFBFBF;color:#555;width:100%;margin-bottom:5px;font-weight:bold;">' . $header . '</div>';
+                $message .= '<div style="background:' . $colors[0] . ';color:' . $colors[1] . ';border:1px solid #333;margin-top:5px;margin-bottom:5px;padding:2px;width:100%;">';
+                $message .= '<div style="background:#BFBFBF;color:#555;width:100%;margin-bottom:5px;font-weight:bold;">' . $header . '</div>';
                 if (!is_array($debug)) {
-                    echo($debug);
+                    $message .= $debug;
                 } elseif (is_array($debug)) {
                     $pos = array_search('.', $debug);
                     unset($debug[$pos]);
@@ -63,14 +70,18 @@ namespace speedme {
                     unset($debug[$pos]);
                     $pos = array_search('index.php', $debug);
                     unset($debug[$pos]);
-                    print_r(array_values($debug));
+                    $message .= '<pre>'.print_r(array_values($debug),true).'</pre>';
                 }
-                echo '</div>';
+                $message .= '</div>';
+            }
+            if(!$return) {
+                echo $message;
             }
             if ($die) {
                 $die = ($die === true) ? '' : $die;
                 die('<div>' . $die . '</div>');
             }
+            return $message;
         }
         public static function executed_line($message = false,$other = false){
             $log_info = debug_backtrace();
@@ -85,7 +96,10 @@ namespace speedme {
     }
     class route{
         public static $actions = false;
-
+        public static $language_route = [
+            'категории'=>'categories',
+            'категория'=>'category'
+        ];
         /**
          * @param $data
          * @param string $default
@@ -103,8 +117,10 @@ namespace speedme {
                     $full_data = $data;
                     unset($data[0]);
                     $data = array_values($data);
-                    return array('controller'=>$full_data[0],'action'=>array_values($data));
+                    $full_data[0] = strtr($full_data[0],self::$language_route);
+                    return array('controller'=>$full_data[0],'action'=>$data);
                 }else if(isset($data[0])){
+                    $data[0] = strtr($data[0],self::$language_route);
                     return array('controller'=>$data[0],'action'=>null);
                 }
             }
