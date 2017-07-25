@@ -21,7 +21,7 @@ helpers: **api/helpers**
 
 #####ROUTING#####
 
-http://www.yoursite.com/{actionController}/{method}/{other[array[...]]}
+http://www.example.com/{actionController}/{method}/{other[array[...]]}
 
 **default controller**
 
