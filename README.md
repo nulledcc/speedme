@@ -43,7 +43,26 @@ For example` **controller.books.php**
 use speedme\views\view;
 
 class books extends view {
-    public function actionBooks(){
+    public function actionBooks($request_data =''){
+		/*request data example.com/books
+		Array
+		(
+			[controller] => books
+			[action] => Array
+				(
+				)
+		)
+		request data example.com/books/book/12
+		Array
+		(
+			[controller] => books
+			[action] => Array
+				(
+				[0] => book
+				[1] => 12
+				)
+		)
+		*/
         parent::$page_title = 'My books';
         //render(['section'=>'php_view_file'])
         parent::render(array('body'=>'books'));
